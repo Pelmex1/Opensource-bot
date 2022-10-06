@@ -1,2 +1,2 @@
 # Pelmen-Craft-bot
-#bot for discord server functions
+bot for discord server functions
