@@ -1,0 +1,5 @@
+#Please don't toch this
+ConfigVersion: 1.0.0
+
+#Write here your bot token from the site (https://discord.com/developers/applications/youbot/bot) instead of BotToken
+BotToken: BOTTOKEN
