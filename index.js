@@ -1,4 +1,6 @@
-const config = require('.config/config.json'),
+require('dotenv').config({path: './.env'})
+
+const
     { IntentsBitField, Client } = require('discord.js'),
     fs = require('fs'),
     { createClient } = require('@supabase/supabase-js'),
@@ -27,8 +29,7 @@ processTime = Date.now();
 bot.on('ready', async ()=>{
     await bot.user.setPresence({ activities: [{ name: JSON.parse(config.readFileSync('./config.json')).status, type: 5 }]});
     runtime = Date.now - processTime;
-    console.log('bot.user.name запустился за ${runtime}ms');
+    console.log(`${bot.user.name} запустился за ${runtime}ms`);
 });
-bot.on("guildCreate", refreshGuild)
 
-bot.login(JSON.parse(config.readFileSync('./config.json')).token)
+bot.login(process.env.token)
