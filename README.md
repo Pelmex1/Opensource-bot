@@ -1,2 +1,2 @@
-# Pelmen-Craft-bot
+# Opensource-bot
 bot for discord server functions
