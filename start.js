@@ -31,4 +31,4 @@ bot.on('ready', async ()=>{
 });
 bot.on("guildCreate", refreshGuild)
 
-bot.login(process.env.token)
+bot.login(JSON.parse(config.readFileSync('./config.json')).token)
