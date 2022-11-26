@@ -1,11 +1,16 @@
 require('dotenv').config({path: './.env'})
  const
-    { IntentsBitField, Client, Constants } = require('discord.js'),
+    { GatewayIntentBits, Client, Constants } = require('discord.js'),
     fs = require('fs'),
     { createClient } = require('@supabase/supabase-js'),
 
-    botInfo = new Client({
-        intents: new IntentsBitField(32767),
+    bot = new Client({
+        intents: [
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.MessageContent,
+            GatewayIntentBits.GuildMembers,
+        ],
         ws: { 
             properties: {
                     $os: process.platform,
@@ -14,6 +19,7 @@ require('dotenv').config({path: './.env'})
                 }
             }
     });
+    commands = {};
 module.exports = {bot: botInfo};
 if (process.argv.includes('--refresh-slash')) { 
     require('.//.js');
