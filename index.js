@@ -2,7 +2,7 @@ require('dotenv').config({path: './.env'})
  const
     { GatewayIntentBits, Client, Constants } = require('discord.js'),
     fs = require('fs'),
-    { createClient } = require('@supabase/supabase-js'),
+    //{ createClient } = require('@supabase/supabase-js'),
 
     bot = new Client({
         intents: [
@@ -19,10 +19,10 @@ require('dotenv').config({path: './.env'})
                 }
             }
     });
-    commands = {};
+ commands = {};
 module.exports = {bot: botInfo};
 if (process.argv.includes('--refresh-slash')) { 
-    require('.//.js');
+    require('.//.js')
 };
 interactionTypes = [
     'ping', 'command',
@@ -42,6 +42,6 @@ bot.on('ready', async ()=>{
 });
 bot.on('interactionCreate', inter=>{
     commands[inter.commandName](inter)
-});
+})
 
 bot.login(process.env.token);
