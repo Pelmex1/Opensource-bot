@@ -1,6 +1,5 @@
 require('dotenv').config({path: './.env'})
-
-const
+ const
     { IntentsBitField, Client } = require('discord.js'),
     fs = require('fs'),
     { createClient } = require('@supabase/supabase-js'),
@@ -27,9 +26,9 @@ interactionTypes = [
 selectMenus = {};
 processTime = Date.now();
 bot.on('ready', async ()=>{
-    await bot.user.setPresence({ activities: [{ name: JSON.parse(config.readFileSync('./config.json')).status, type: 5 }]});
+    await bot.user.setPresence({ activities: [{ name: process.env.status, type: 5 }]});
     runtime = Date.now - processTime;
     console.log(`${bot.user.name} запустился за ${runtime}ms`);
 });
 
-bot.login(process.env.token)
+bot.login(process.env.token);
