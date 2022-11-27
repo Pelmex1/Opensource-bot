@@ -1,9 +1,10 @@
 require('dotenv').config({path: './.env'})
+
  const
     { GatewayIntentBits, Client, Constants } = require('discord.js'),
     fs = require('fs'),
     //{ createClient } = require('@supabase/supabase-js'),
-
+  
     bot = new Client({
         intents: [
             GatewayIntentBits.Guilds,
@@ -15,15 +16,16 @@ require('dotenv').config({path: './.env'})
             properties: {
                     $os: process.platform,
                     $browser: "Discord",
-                    $device: "discord.js" 
+                    $device: "discord Android" 
                 }
             }
     });
- commands = {};
-module.exports = {bot: botInfo};
-if (process.argv.includes('--refresh-slash')) { 
-    require('.//.js')
-};
+    
+commands = {}
+module.exports = {bot: bot};
+if (process.argv.includes('--refresh-slash')) {   
+    require('./commands/init');
+}
 interactionTypes = [
     'ping', 'command',
     'component', 'autocomplete',
@@ -32,9 +34,11 @@ interactionTypes = [
 selectMenus = {};
 processTime = Date.now();
 bot.on('ready', async ()=>{
+
     await bot.user.setPresence({ activities: [{ name: process.env.status, type: 5 }]});
     runtime = Date.now - processTime;
-    console.log(`${bot.user.name} запустился за ${runtime}ms`);
+    console.log(`${bot.user.username} запустился за ${runtime}ms`);
+
     fs
         .readdirSync('./commands')
         .filter(file=>file!='init.js')
@@ -44,4 +48,8 @@ bot.on('interactionCreate', inter=>{
     commands[inter.commandName](inter)
 })
 
-bot.login(process.env.token);
+bot.on('interactionCreate', inter=>{
+    commands[inter.commandName](inter)
+})
+
+bot.login(process.env.token)
