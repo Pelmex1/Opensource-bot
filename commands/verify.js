@@ -2,8 +2,8 @@ const { SlashCommandBuilder, ActionRowBuilder, Events, ModalBuilder, TextInputBu
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('Verify')
-		.setDescription('Provides information about the user.'),
+		.setName('verify')
+		.setDescription('пройти верефикацию'),
 	async execute(inter) {
         const modal = new ModalBuilder()
                 .setCustomId('verify')
@@ -11,7 +11,7 @@ module.exports = {
                 .addComponents(new ActionRowBuilder().addComponents(new TextInputBuilder()
                     .setCustomId('nickname')
                     .setLabel("Твой ник")
-                    .setPlaceholder("Stive")
+                    .setPlaceholder("Steve")
                     .setMaxLength(15)
                     .setStyle(TextInputStyle.Short))
                 )
