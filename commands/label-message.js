@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ActionRowBuilder, Events, ModalBuilder, TextInputBu
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('Verify')
+		.setName('label-messagge')
 		.setDescription('Provides information about the user.'),
 	async execute(inter) {
         const modal = new ModalBuilder()

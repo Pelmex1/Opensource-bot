@@ -23,8 +23,8 @@ require('dotenv').config({path: './.env'})
     
 commands = {}
 module.exports = {bot: bot};
-if (process.argv.includes('--refresh-slash')) {   
-    require('./commands/init');
+if (true) {   
+    require('./commands/init.js');
 }
 interactionTypes = [
     'ping', 'command',
@@ -36,18 +36,13 @@ processTime = Date.now();
 bot.on('ready', async ()=>{
 
     await bot.user.setPresence({ activities: [{ name: process.env.status, type: 5 }]});
-    runtime = Date.now - processTime;
-    console.log(`${bot.user.username} запустился за ${runtime}ms`);
-
-    fs
-        .readdirSync('./commands')
+    runtime = Date.now() - processTime;
+    console.log(`${bot.user.username} запустился за ${runtime}ms`)
+    
+        fs.readdirSync('./commands')
         .filter(file=>file!='init.js')
-        .forEach(file=>commands[file.replace('.js', '')] = require('./commands/'+file).execute)
+        .forEach(file=>commands[file.replace('.js', '')] = require('./commands/'+file).execute);
 });
-bot.on('interactionCreate', inter=>{
-    commands[inter.commandName](inter)
-})
-
 bot.on('interactionCreate', inter=>{
     commands[inter.commandName](inter)
 })
