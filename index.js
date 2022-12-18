@@ -1,3 +1,5 @@
+const { data } = require('./commands/label-message.js');
+"use strict";
 require('dotenv').config({path: './.env'})
 
  const
@@ -45,6 +47,5 @@ bot.on('ready', async ()=>{
 });
 bot.on('interactionCreate', inter=>{
     commands[inter.commandName](inter)
-})
-
+});
 bot.login(process.env.token)
