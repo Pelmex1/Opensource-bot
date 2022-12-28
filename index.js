@@ -1,13 +1,12 @@
-const { data } = require('./commands/label-message.js');
 "use strict";
 require('dotenv').config({path: './.env'})
 
  const
-    { GatewayIntentBits, Client, Constants } = require('discord.js'),
-    fs = require('fs'),
+    { GatewayIntentBits, Client, Constants, Component } = require('discord.js'),
+    fs = require('fs')
     //{ createClient } = require('@supabase/supabase-js'),
   
-    bot = new Client({
+    const bot = new Client({
         intents: [
             GatewayIntentBits.Guilds,
             GatewayIntentBits.GuildMessages,
@@ -23,29 +22,35 @@ require('dotenv').config({path: './.env'})
             }
     });
     
-commands = {}
+const commands = {};
 module.exports = {bot: bot};
 if (true) {   
     require('./commands/init.js');
 }
-interactionTypes = [
+const interactionTypes = [
     'ping', 'command',
     'component', 'autocomplete',
     'modal'
 ];
-selectMenus = {};
-processTime = Date.now();
+const selectMenus = {}
+const processTime = Date.now();
 bot.on('ready', async ()=>{
 
     await bot.user.setPresence({ activities: [{ name: process.env.status, type: 5 }]});
-    runtime = Date.now() - processTime;
+    const runtime = Date.now() - processTime;
     console.log(`${bot.user.username} запустился за ${runtime}ms`)
     
         fs.readdirSync('./commands')
         .filter(file=>file!='init.js')
         .forEach(file=>commands[file.replace('.js', '')] = require('./commands/'+file).execute);
 });
-bot.on('interactionCreate', inter=>{
+bot.on('interactionCreate', (inter)=>{
+if(inter.isCommand()){
     commands[inter.commandName](inter)
+}
+else {
+    //require('./additions/'+inter.customId.split(' ')[1]).execute(inter)
+    require('./additions/'+ inter.customId).execute(inter)
+}
 });
 bot.login(process.env.token)
